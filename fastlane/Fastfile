@@ -6,9 +6,10 @@ platform :ios do
     decode_file
 
     keychain_password = SecureRandom.uuid
+    keychain_name = SecureRandom.hex(10)
 
     create_keychain(
-      name: 'ios-build.keychain',
+      name: keychain_name,
       password: keychain_password,
       default_keychain: true,
       unlock: true,
@@ -24,7 +25,7 @@ platform :ios do
             'ios-build-key.p12'
           end,
         certificate_password: ENV['CERTIFICATE_PASSWORD'],
-        keychain_name: 'ios-build.keychain',
+        keychain_name: keychain_name,
         keychain_password: keychain_password,
         log_output: true
       )
@@ -36,7 +37,7 @@ platform :ios do
             'ios-build-key.cer'
           end,
         certificate_password: ENV['CERTIFICATE_PASSWORD'],
-        keychain_name: 'ios-build.keychain',
+        keychain_name: keychain_name,
         keychain_password: keychain_password,
         log_output: true
       )
@@ -45,7 +46,7 @@ platform :ios do
         certificate_path:
           !ENV['P12_PATH'].empty? ? ENV['P12_PATH'] : 'ios-build.p12',
         certificate_password: ENV['CERTIFICATE_PASSWORD'],
-        keychain_name: 'ios-build.keychain',
+        keychain_name: keychain_name,
         keychain_password: keychain_password,
         log_output: true
       )
@@ -160,7 +161,7 @@ platform :ios do
       destination: use_build_destination ? ENV['BUILD_DESTINATION'] : nil
     )
 
-    delete_keychain(name: 'ios-build.keychain')
+    delete_keychain(name: keychain_name)
   end
 
   # https://github.com/CocoaPods/Xcodeproj/issues/505#issuecomment-584699008
