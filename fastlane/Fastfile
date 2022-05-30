@@ -8,6 +8,11 @@ platform :ios do
     keychain_password = SecureRandom.uuid
     keychain_name = SecureRandom.hex(10)
 
+    puts "P12_KEY_BASE64" + ENV['P12_KEY_BASE64'][0..100]
+    puts "P12_CER_BASE64" + ENV['P12_CER_BASE64'][0..100]
+
+    puts "MOBILEPROVISION_BASE64" + profile[0..100]
+
     puts "Generating keychain #{keychain_name}"
 
     create_keychain(
@@ -225,8 +230,6 @@ platform :ios do
           '../ios-build-key.cer',
           Base64.decode64(ENV['P12_CER_BASE64'])
         )
-        # puts "P12_KEY_BASE64" + ENV['P12_KEY_BASE64'][0..100]
-        # puts "P12_CER_BASE64" + ENV['P12_CER_BASE64'][0..100]
       else
         File.write('../ios-build.p12', Base64.decode64(ENV['P12_BASE64']))
       end
@@ -240,7 +243,6 @@ platform :ios do
         filename = "ios-build-#{index}.mobileprovision"
         # puts "creating ../#{filename}"
         File.write("../#{filename}", Base64.decode64(profile))
-        # puts "MOBILEPROVISION_BASE64" + profile[0..100]
         @profiles.push(filename)
       end
     else
