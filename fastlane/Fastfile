@@ -7,11 +7,13 @@ platform :ios do
 
     keychain_password = SecureRandom.uuid
     keychain_name = SecureRandom.hex(10)
+    
+    puts ENV['P12_BASE64'][0..100]
 
-    puts "P12_KEY_BASE64" + ENV['P12_KEY_BASE64'][0..100]
-    puts "P12_CER_BASE64" + ENV['P12_CER_BASE64'][0..100]
+    # puts "P12_KEY_BASE64" + ENV['P12_KEY_BASE64'][0..100]
+    # puts "P12_CER_BASE64" + ENV['P12_CER_BASE64'][0..100]
 
-    puts "MOBILEPROVISION_BASE64" + profile[0..100]
+    # puts "MOBILEPROVISION_BASE64" + profile[0..100]
 
     puts "Generating keychain #{keychain_name}"
 
