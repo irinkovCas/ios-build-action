@@ -8,6 +8,8 @@ platform :ios do
     keychain_password = SecureRandom.uuid
     keychain_name = SecureRandom.hex(10)
 
+    puts "Generating keychain #{keychain_name}"
+
     create_keychain(
       name: keychain_name,
       password: keychain_password,
